@@ -15,7 +15,7 @@ export const ErrorNotification = ({ errorMessage, setErrorMessage }: Props) => {
     return () => {
       clearTimeout(id);
     };
-  }, []);
+  }, [setErrorMessage]);
 
   return (
     <div
