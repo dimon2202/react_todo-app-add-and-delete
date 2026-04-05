@@ -90,7 +90,7 @@ export const App: React.FC = () => {
 
   const deleteCompletedTodos = () => {
     complitedTodos.map(todo => deleteTodo(todo.id));
-  }
+  };
 
   return (
     <div className="todoapp">

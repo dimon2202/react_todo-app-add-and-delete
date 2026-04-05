@@ -7,7 +7,6 @@ type Props = {
 };
 
 export const ErrorNotification = ({ errorMessage, setErrorMessage }: Props) => {
-
   useEffect(() => {
     const id = setTimeout(() => {
       setErrorMessage('');
@@ -15,8 +14,8 @@ export const ErrorNotification = ({ errorMessage, setErrorMessage }: Props) => {
 
     return () => {
       clearTimeout(id);
-    }
-  }, [errorMessage]);
+    };
+  }, []);
 
   return (
     <div
