@@ -3,10 +3,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Todo } from '../types/Todo';
 import { USER_ID } from '../api/todos';
+import { ErrorMessage } from '../types/ErrorMessage';
 
 type Props = {
   onSubmit: (todo: Todo) => Promise<void>;
-  setErrorMessage: (error: string) => void;
+  setErrorMessage: (error: ErrorMessage) => void;
   onTempTodo?: (todo: Todo | null) => void;
   tempTodo: Todo | null;
 };
@@ -30,7 +31,7 @@ export const Header: React.FC<Props> = ({
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
-    setErrorMessage('');
+    setErrorMessage(ErrorMessage.Default);
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -38,7 +39,7 @@ export const Header: React.FC<Props> = ({
     const trimmedTitle = title.trim();
 
     if (trimmedTitle.length === 0) {
-      setErrorMessage('Title should not be empty');
+      setErrorMessage(ErrorMessage.Title_should_not_be_empty);
       onTempTodo(null);
 
       return;

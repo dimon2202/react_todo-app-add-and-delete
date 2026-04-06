@@ -1,15 +1,16 @@
 import classNames from 'classnames';
 import { useEffect } from 'react';
+import { ErrorMessage } from '../types/ErrorMessage';
 
 type Props = {
   errorMessage: string;
-  setErrorMessage: (v: string) => void;
+  setErrorMessage: (v: ErrorMessage) => void;
 };
 
 export const ErrorNotification = ({ errorMessage, setErrorMessage }: Props) => {
   useEffect(() => {
     const id = setTimeout(() => {
-      setErrorMessage('');
+      setErrorMessage(ErrorMessage.Default);
     }, 3000);
 
     return () => {
@@ -34,7 +35,7 @@ export const ErrorNotification = ({ errorMessage, setErrorMessage }: Props) => {
         data-cy="HideErrorButton"
         type="button"
         className="delete"
-        onClick={() => setErrorMessage('')}
+        onClick={() => setErrorMessage(ErrorMessage.Default)}
       />
       {errorMessage}
     </div>

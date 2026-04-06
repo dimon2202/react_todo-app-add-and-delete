@@ -8,6 +8,7 @@ import { Footer } from './components/Footer';
 import { Header } from './components/Header';
 import { ErrorNotification } from './components/ErrorNotification';
 import { TodoList } from './components/TodoList';
+import { ErrorMessage } from './types/ErrorMessage';
 
 function getPrepearedTodos(
   todos: Todo[],
@@ -38,16 +39,16 @@ export const App: React.FC = () => {
   const [loadingTodoId, setLoadingTodoId] = useState<number | null>(null);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [status, setStatus] = useState<Status>(Status.All);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(ErrorMessage.Default);
   const [tempTodo, setTempTodo] = useState<Todo | null>(null);
 
   useEffect(() => {
-    setErrorMessage('');
+    setErrorMessage(ErrorMessage.Default);
 
     todoServise
       .getTodos()
       .then(setTodos)
-      .catch(() => setErrorMessage('Unable to load todos'))
+      .catch(() => setErrorMessage(ErrorMessage.Unable_to_load_todos))
       .finally(() => setLoading(false));
   }, []);
 
@@ -60,13 +61,13 @@ export const App: React.FC = () => {
   });
 
   const addTodo = ({ userId, title, completed }: Todo) => {
-    setErrorMessage('');
+    setErrorMessage(ErrorMessage.Default);
 
     return todoServise
       .addTodo({ title, userId, completed })
       .then(newTodo => setTodos(currentTodos => [...currentTodos, newTodo]))
       .catch(error => {
-        setErrorMessage('Unable to add a todo');
+        setErrorMessage(ErrorMessage.Unable_to_add_a_todo);
         throw error;
       });
   };
@@ -82,7 +83,7 @@ export const App: React.FC = () => {
         ),
       )
       .catch(error => {
-        setErrorMessage('Unable to delete a todo');
+        setErrorMessage(ErrorMessage.Unable_to_delete_a_todo);
         throw error;
       })
       .finally(() => setLoadingTodoId(null));
